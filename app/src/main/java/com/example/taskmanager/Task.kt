@@ -13,5 +13,10 @@ data class Task(
     val description: String,
     val date: String,
     val time: String,
-    val priority: String
+    val priority: String,
+    var status: String = "Incomplete",  // New field to indicate task status
+    val alarmSoundUri: String? = null // Ensure this field is included
 ) : Parcelable
+
+
+

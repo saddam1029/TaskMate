@@ -1,0 +1,43 @@
+<!-- res/layout/custom_menu.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/_10sdp"
+    android:elevation="@dimen/_5sdp"
+    android:backgroundTint="@color/app_color"
+    android:background="@drawable/custom_menu_background">
+
+    <TextView
+        android:id="@+id/tvCompleteTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Complete Tasks"
+        android:padding="10dp"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/tvFollow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Follow us"
+        android:padding="10dp"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/tvInvite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Invite Friend"
+        android:padding="10dp"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/tvSetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Setting"
+        android:padding="10dp"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>

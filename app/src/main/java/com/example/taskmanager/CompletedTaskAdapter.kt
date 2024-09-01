@@ -1,32 +1,42 @@
 package com.example.taskmanager
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.taskmanager.databinding.HighTaskItemBinding
+import com.example.taskmanager.databinding.TaskItemsBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-
-class HighPriorityTaskAdapter(
+class CompletedTaskAdapter(
     private val onItemClick: (Task) -> Unit,
     private val onDeleteClick: (Task) -> Unit,
-    private val onUpdateClick: (Task) -> Unit) :
-    ListAdapter<Task, HighPriorityTaskAdapter.TaskViewHolder>(TaskDiffCallback()) {
+    private val onRevertClick: (Task) -> Unit
+) : ListAdapter<Task, CompletedTaskAdapter.TaskViewHolder>(TaskDiffCallback()), Filterable {
 
-    inner class TaskViewHolder(private val binding: HighTaskItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    private var taskList: List<Task> = listOf()
+    private var filteredList: List<Task> = listOf()
+
+    override fun submitList(list: List<Task>?) {
+        super.submitList(list)
+        taskList = list ?: listOf()
+        filteredList = taskList // Set the filtered list initially as the full list
+    }
+
+    inner class TaskViewHolder(private val binding: TaskItemsBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(task: Task) {
             binding.tvTaskName.text = task.title
             binding.tvDate.text = task.date
-            binding.tvPriority.text = task.priority
 
             // Compare task date and time with the current date and time
             val dateFormat = SimpleDateFormat("EEE, dd, MMM yyyy hh:mm a", Locale.getDefault())
@@ -34,29 +44,30 @@ class HighPriorityTaskAdapter(
             val currentDateTime = Calendar.getInstance().time
 
             // If the task date and time match the current date and time, change the text color to red
-            if (taskDateTime != null && taskDateTime.before(currentDateTime) || taskDateTime.equals(currentDateTime)) {
-                binding.tvDate.setTextColor(ContextCompat.getColor(binding.root.context, R.color.red))
-            } else {
-                binding.tvDate.setTextColor(ContextCompat.getColor(binding.root.context, R.color.light_app_color)) // Reset to default color
+            if (taskDateTime != null) {
+                if (taskDateTime.before(currentDateTime) || taskDateTime.equals(currentDateTime)) {
+                    binding.tvDate.setTextColor(ContextCompat.getColor(binding.root.context, R.color.red))
+                } else {
+                    binding.tvDate.setTextColor(ContextCompat.getColor(binding.root.context, R.color.light_app_color)) // Reset to default color
+                }
             }
+
 
             binding.ivMenu.setOnClickListener {
                 showBottomSheetDialog(binding.root, task)
             }
-
-            binding.root.setOnClickListener {
-                onItemClick(task)
-            }
         }
 
+
+        @SuppressLint("InflateParams")
         private fun showBottomSheetDialog(view: View, task: Task) {
             val bottomSheetDialog = BottomSheetDialog(view.context)
-            val bottomSheetView = LayoutInflater.from(view.context).inflate(R.layout.bottom_dialog_home_layout, null)
+            val bottomSheetView = LayoutInflater.from(view.context)
+                .inflate(R.layout.bottom_dialog_task_finish_layout, null)
             bottomSheetDialog.setContentView(bottomSheetView)
 
-            bottomSheetView.findViewById<LinearLayout>(R.id.layoutFinishTask).setOnClickListener {
-                task.status = "Complete"
-                onUpdateClick(task)  // Update the task to reflect the "Complete" status
+            bottomSheetView.findViewById<LinearLayout>(R.id.layoutNotFinishTask).setOnClickListener {
+                onRevertClick(task)
                 bottomSheetDialog.dismiss()
             }
 
@@ -75,7 +86,6 @@ class HighPriorityTaskAdapter(
                 .setPositiveButton("Yes") { dialog, _ ->
                     onDeleteClick(task)
                     dialog.dismiss()
-
                 }
                 .setNegativeButton("No") { dialog, _ ->
                     dialog.dismiss()
@@ -87,12 +97,37 @@ class HighPriorityTaskAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        val binding = HighTaskItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = TaskItemsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TaskViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(filteredList[position])
+    }
+
+    override fun getItemCount(): Int {
+        return filteredList.size
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val results = FilterResults()
+                if (constraint.isNullOrEmpty()) {
+                    results.values = taskList
+                } else {
+                    val filterPattern = constraint.toString().lowercase().trim()
+                    results.values = taskList.filter { it.title.lowercase().contains(filterPattern) }
+                }
+                return results
+            }
+
+            @SuppressLint("NotifyDataSetChanged")
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                filteredList = results?.values as List<Task>
+                notifyDataSetChanged()
+            }
+        }
     }
 
     class TaskDiffCallback : DiffUtil.ItemCallback<Task>() {
@@ -105,4 +140,3 @@ class HighPriorityTaskAdapter(
         }
     }
 }
-

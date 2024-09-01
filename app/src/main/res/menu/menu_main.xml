@@ -1,0 +1,9 @@
+<!-- res/menu/menu_main.xml -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_option1"
+        android:title="Complete Task" />
+    <item
+        android:id="@+id/menu_option2"
+        android:title="Option 2" />
+</menu>

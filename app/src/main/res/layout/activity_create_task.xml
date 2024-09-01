@@ -10,6 +10,20 @@
     tools:context=".CreateTaskActivity">
 
 
+<!--    <ScrollView-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clHeader"
         android:layout_width="match_parent"
@@ -26,6 +40,9 @@
             android:layout_marginStart="@dimen/_14sdp"
             android:layout_marginTop="@dimen/_3sdp"
             android:src="@drawable/back_white"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -73,18 +90,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvTitleDummy"
-            android:layout_marginTop="@dimen/_5sdp"
             android:ems="10"
             android:fontFamily="@font/plus_jakarta_sans_medium"
-            android:paddingVertical="@dimen/_8sdp"
-            android:paddingStart="@dimen/_1sdp"
+            android:paddingVertical="@dimen/_12sdp"
             android:hint="Enter Title"
             android:textSize="@dimen/_12ssp"
             android:textColor="@android:color/white"
-            android:textColorHint="@android:color/darker_gray"
+            android:textColorHint="@android:color/white"
             android:inputType="text"
             android:cursorVisible="true"
-            android:background="@drawable/edit_text_border" />
+            android:backgroundTint="@color/white" />
 
         <TextView
             android:id="@+id/tvDescriptionDummy"
@@ -103,27 +118,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvDescriptionDummy"
-            android:layout_marginTop="@dimen/_5sdp"
             android:ems="10"
-            android:paddingVertical="@dimen/_8sdp"
-            android:paddingStart="@dimen/_1sdp"
+            android:paddingVertical="@dimen/_12sdp"
             android:textSize="@dimen/_12ssp"
             android:hint="Enter Description"
             android:textColor="@android:color/white"
-            android:textColorHint="@android:color/darker_gray"
+            android:textColorHint="@android:color/white"
             android:inputType="text"
             android:cursorVisible="true"
-            android:background="@drawable/edit_text_border"/>
+            android:backgroundTint="@color/white"/>
 
 
     </RelativeLayout>
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_30sdp"
-        app:cardCornerRadius="@dimen/_30sdp"
-        app:layout_constraintTop_toBottomOf="@+id/rl2" >
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/rounded_top_background">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -134,8 +147,8 @@
                 android:id="@+id/rl3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20ssp"
                 android:layout_marginHorizontal="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_20ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -146,8 +159,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="0dp"
-                    android:text="Date"
                     android:fontFamily="@font/plus_jakarta_sans_medium"
+                    android:text="Date"
                     android:textColor="@color/light_blue"
                     android:textSize="@dimen/_15sdp"
                     android:textStyle="bold" />
@@ -159,8 +172,8 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="@dimen/_70sdp"
-                    android:text="Time"
                     android:fontFamily="@font/plus_jakarta_sans_medium"
+                    android:text="Time"
                     android:textColor="@color/light_blue"
                     android:textSize="@dimen/_15sdp"
                     android:textStyle="bold" />
@@ -169,28 +182,32 @@
                     android:id="@+id/cvDate"
                     android:layout_width="@dimen/_110sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_below="@+id/tvTimeDummy"
-                    android:elevation="@dimen/_5sdp">
+                    app:cardCornerRadius="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:elevation="@dimen/_5sdp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground">
 
                     <RelativeLayout
                         android:layout_width="@dimen/_110sdp"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/_5sdp"
-                        android:layout_marginStart="@dimen/_3sdp"
                         android:layout_below="@+id/tvTimeDummy"
-                        android:layout_alignParentEnd="true">
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:padding="@dimen/_5sdp">
 
                         <TextView
                             android:id="@+id/tvDate"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
-                            android:text="12, Oct 2020"
                             android:fontFamily="@font/plus_jakarta_sans_medium"
+                            android:text="12, Oct 2020"
                             android:textColor="@color/light_black"
-                            android:textSize="@dimen/_11sdp"/>
+                            android:textSize="@dimen/_11sdp" />
 
                     </RelativeLayout>
 
@@ -201,17 +218,21 @@
                     android:layout_width="@dimen/_110sdp"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvTimeDummy"
-                    android:elevation="@dimen/_5sdp"
+                    android:layout_alignParentEnd="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardCornerRadius="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_alignParentEnd="true">
+                    android:elevation="@dimen/_5sdp">
 
                     <RelativeLayout
                         android:layout_width="@dimen/_110sdp"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tvTimeDummy"
-                        android:padding="@dimen/_5sdp"
+                        android:layout_alignParentEnd="true"
                         android:layout_marginStart="@dimen/_3sdp"
-                        android:layout_alignParentEnd="true">
+                        android:padding="@dimen/_5sdp">
 
                         <TextView
                             android:id="@+id/tvTime"
@@ -222,7 +243,7 @@
                             android:fontFamily="@font/plus_jakarta_sans_medium"
                             android:text="12:00"
                             android:textColor="@color/light_black"
-                            android:textSize="@dimen/_11sdp"/>
+                            android:textSize="@dimen/_11sdp" />
 
                         <TextView
                             android:id="@+id/tvTimeState"
@@ -239,8 +260,8 @@
                             android:id="@+id/ivDropdown"
                             android:layout_width="@dimen/_15sdp"
                             android:layout_height="@dimen/_15sdp"
-                            android:src="@drawable/dropdown"
-                            android:layout_alignParentEnd="true"/>
+                            android:layout_alignParentEnd="true"
+                            android:src="@drawable/dropdown" />
 
                     </RelativeLayout>
 
@@ -249,19 +270,69 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
-                    android:layout_below="@id/cvDate"/>
+                    android:layout_below="@id/cvDate" />
+
 
             </RelativeLayout>
+
+
 
             <RelativeLayout
                 android:id="@+id/rl4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rl3">
+
+                <TextView
+                    android:id="@+id/tvAlarmDummy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="@font/plus_jakarta_sans_medium"
+                    android:text="Set Reminder"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvSelect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_toEndOf="@+id/tvAlarmDummy"
+                    android:fontFamily="@font/plus_jakarta_sans_medium"
+                    android:text="@string/app_Sound"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:textColor="@color/light_blue"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold" />
+
+                <com.suke.widget.SwitchButton
+                    android:id="@+id/sbAlarm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    app:sb_checked="true"
+                    app:sb_checked_color="@color/app_color"
+                    tools:ignore="RelativeOverlap" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rl4">
 
                 <TextView
                     android:id="@+id/tvPriorityDummy"
@@ -269,8 +340,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="0dp"
-                    android:text="Priority "
                     android:fontFamily="@font/plus_jakarta_sans_medium"
+                    android:text="Priority "
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/_17sdp"
                     android:textStyle="bold" />
@@ -288,10 +359,10 @@
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:background="@drawable/radio_button_background"
+                        android:button="@null"
+                        android:fontFamily="@font/plus_jakarta_sans_medium"
                         android:gravity="center"
                         android:text="High"
-                        android:fontFamily="@font/plus_jakarta_sans_medium"
-                        android:button="@null"
                         android:textColor="@drawable/checkbox_text_color"
                         android:textSize="@dimen/_10ssp" />
 
@@ -299,13 +370,13 @@
                         android:id="@+id/rbCommunication"
                         android:layout_width="@dimen/_80sdp"
                         android:layout_height="@dimen/_20sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
                         android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:background="@drawable/radio_button_background"
+                        android:button="@null"
+                        android:fontFamily="@font/plus_jakarta_sans_medium"
                         android:gravity="center"
                         android:text="Medium"
-                        android:fontFamily="@font/plus_jakarta_sans_medium"
-                        android:button="@null"
                         android:textColor="@drawable/checkbox_text_color"
                         android:textSize="@dimen/_10ssp" />
 
@@ -313,13 +384,13 @@
                         android:id="@+id/rbCreativity"
                         android:layout_width="@dimen/_80sdp"
                         android:layout_height="@dimen/_20sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
                         android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:background="@drawable/radio_button_background"
+                        android:button="@null"
+                        android:fontFamily="@font/plus_jakarta_sans_medium"
                         android:gravity="center"
                         android:text="Low"
-                        android:fontFamily="@font/plus_jakarta_sans_medium"
-                        android:button="@null"
                         android:textColor="@drawable/checkbox_text_color"
                         android:textSize="@dimen/_10ssp" />
                 </RadioGroup>
@@ -331,28 +402,32 @@
                 android:id="@+id/btAddTasks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/app_color"
                 android:layout_marginHorizontal="@dimen/_30sdp"
-                android:text="Create Task"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:backgroundTint="@color/app_color"
                 android:fontFamily="@font/plus_jakarta_sans_medium"
+                android:text="Create Task"
                 android:textSize="@dimen/_15sdp"
-                android:layout_marginTop="@dimen/_40sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rl4"/>
+                app:layout_constraintTop_toBottomOf="@id/rl5" />
 
 
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_30sdp"
-                app:layout_constraintTop_toBottomOf="@id/btAddTasks"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintLeft_toRightOf="parent"
-                />
+                app:layout_constraintTop_toBottomOf="@id/btAddTasks" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+        </FrameLayout>
+
+
+<!--        </LinearLayout>-->
+
+<!--    </ScrollView>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

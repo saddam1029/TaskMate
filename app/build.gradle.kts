@@ -21,7 +21,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.taskmanager"
-        minSdk = 28
+        minSdk = 27
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -98,6 +98,11 @@ dependencies {
         kapt("androidx.room:room-compiler:$room_version")
     // To use Kotlin Symbol Processing (KSP)
         ksp("androidx.room:room-compiler:$room_version")
+
+    implementation ("com.github.zcweng:switch-button:0.0.3@aar")
+
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:2.0.0")// Use latest version
+
 
 
 
