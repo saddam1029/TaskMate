@@ -3,8 +3,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <!-- Default theme color -->
     <color name="app_color">#36338B</color>
-    <color name="red_color">#AD2C2C</color>
 
 
     <color name="app_background">#F2F5FE</color>

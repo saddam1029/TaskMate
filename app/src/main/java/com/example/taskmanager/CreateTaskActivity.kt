@@ -1,3 +1,4 @@
+
 package com.example.taskmanager
 
 import android.annotation.SuppressLint
@@ -28,6 +29,7 @@ class CreateTaskActivity : AppCompatActivity() {
     companion object {
         private const val REQUEST_CODE_PICK_SOUND = 1
     }
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,53 +116,21 @@ class CreateTaskActivity : AppCompatActivity() {
                 when {
                     isToday -> {
                         // Current day - set the color to default (e.g., light blue)
-                        binding.tvDate.setTextColor(
-                            ContextCompat.getColor(
-                                this,
-                                R.color.light_blue
-                            )
-                        )
-                        binding.tvTime.setTextColor(
-                            ContextCompat.getColor(
-                                this,
-                                R.color.light_blue
-                            )
-                        )
-                        binding.tvTimeState.setTextColor(
-                            ContextCompat.getColor(
-                                this,
-                                R.color.light_blue
-                            )
-                        )
+                        binding.tvDate.setTextColor(ContextCompat.getColor(this, R.color.light_blue))
+                        binding.tvTime.setTextColor(ContextCompat.getColor(this, R.color.light_blue))
+                        binding.tvTimeState.setTextColor(ContextCompat.getColor(this, R.color.light_blue))
                     }
-
                     isPastDate -> {
                         // Past date - set the color to red
                         binding.tvDate.setTextColor(ContextCompat.getColor(this, R.color.red))
                         binding.tvTime.setTextColor(ContextCompat.getColor(this, R.color.red))
                         binding.tvTimeState.setTextColor(ContextCompat.getColor(this, R.color.red))
                     }
-
                     else -> {
                         // Future date - set the color to default (e.g., light blue)
-                        binding.tvDate.setTextColor(
-                            ContextCompat.getColor(
-                                this,
-                                R.color.light_blue
-                            )
-                        )
-                        binding.tvTime.setTextColor(
-                            ContextCompat.getColor(
-                                this,
-                                R.color.light_blue
-                            )
-                        )
-                        binding.tvTimeState.setTextColor(
-                            ContextCompat.getColor(
-                                this,
-                                R.color.light_blue
-                            )
-                        )
+                        binding.tvDate.setTextColor(ContextCompat.getColor(this, R.color.light_blue))
+                        binding.tvTime.setTextColor(ContextCompat.getColor(this, R.color.light_blue))
+                        binding.tvTimeState.setTextColor(ContextCompat.getColor(this, R.color.light_blue))
                     }
                 }
             },
@@ -187,7 +157,7 @@ class CreateTaskActivity : AppCompatActivity() {
         val minute = calendar.get(Calendar.MINUTE)
 
         val timePickerDialog = TimePickerDialog(
-            this, R.style.CustomTimePicker,
+            this,R.style.CustomTimePicker,
             { _, selectedHour, selectedMinute ->
                 val formattedMinute = String.format("%02d", selectedMinute)
                 val formattedHour = if (selectedHour % 12 == 0) 12 else selectedHour % 12
@@ -272,13 +242,7 @@ class CreateTaskActivity : AppCompatActivity() {
                 date = date,
                 time = time, // Ensure the time includes the AM/PM suffix
                 priority = priority
-            ) ?: Task(
-                title = title,
-                description = description,
-                date = date,
-                time = time,
-                priority = priority
-            )
+            ) ?: Task(title = title, description = description, date = date, time = time, priority = priority)
 
             // Check if sbAlarm is on before setting the alarm
             if (binding.sbAlarm.isChecked) {
@@ -309,10 +273,7 @@ class CreateTaskActivity : AppCompatActivity() {
         }
 
         val pendingIntent = PendingIntent.getBroadcast(
-            this,
-            task.id,
-            alarmIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            this, task.id, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
         // Format the date and time string into a Date object
@@ -331,9 +292,7 @@ class CreateTaskActivity : AppCompatActivity() {
         val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER)
         intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM)
         intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Select Alarm Sound")
-        intent.putExtra(
-            RingtoneManager.EXTRA_RINGTONE_EXISTING_URI,
-            task?.alarmSoundUri?.let { Uri.parse(it) })
+        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, task?.alarmSoundUri?.let { Uri.parse(it) })
 
         startActivityForResult(intent, REQUEST_CODE_PICK_SOUND)
     }
@@ -356,14 +315,15 @@ class CreateTaskActivity : AppCompatActivity() {
     }
 
 
+
     @Deprecated("This method has been deprecated in favor of using the\n      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.\n      The OnBackPressedDispatcher controls how back button events are dispatched\n      to one or more {@link OnBackPressedCallback} objects.")
-    override fun onBackPressed() {
+    override fun onBackPressed(){
         super.onBackPressed()
 
         navigateToHome()
     }
 
-    private fun navigateToHome() {
+    private fun navigateToHome(){
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
