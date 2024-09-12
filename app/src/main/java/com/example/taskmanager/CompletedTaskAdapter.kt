@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.LinearLayout
@@ -80,17 +81,24 @@ class CompletedTaskAdapter(
         }
 
         private fun showConfirmationDialog(view: View, task: Task) {
-            val alertDialog = AlertDialog.Builder(view.context)
-                .setTitle("Delete Task")
-                .setMessage("Are you sure you want to delete this task?")
-                .setPositiveButton("Yes") { dialog, _ ->
-                    onDeleteClick(task)
-                    dialog.dismiss()
-                }
-                .setNegativeButton("No") { dialog, _ ->
-                    dialog.dismiss()
-                }
+            val dialogView = LayoutInflater.from(view.context).inflate(R.layout.dialog_delete_task, null)
+
+            val alertDialog = AlertDialog.Builder(view.context, R.style.CustomAlertDialog) // Optional: use custom style
+                .setView(dialogView)
                 .create()
+
+            val deleteConfirmButton = dialogView.findViewById<Button>(R.id.btnDeleteConfirm)
+            val cancelButton = dialogView.findViewById<Button>(R.id.btnDeleteCancel)
+
+            // Set click listeners for buttons
+            deleteConfirmButton.setOnClickListener {
+                onDeleteClick(task)
+                alertDialog.dismiss()
+            }
+
+            cancelButton.setOnClickListener {
+                alertDialog.dismiss()  // Dismiss dialog when "No" is clicked
+            }
 
             alertDialog.show()
         }

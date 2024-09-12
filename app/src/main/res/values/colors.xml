@@ -5,6 +5,7 @@
 
     <!-- Default theme color -->
     <color name="app_color">#36338B</color>
+    <color name="app_color2">#FD9700</color>
 
 
     <color name="app_background">#F2F5FE</color>

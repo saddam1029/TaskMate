@@ -30,8 +30,6 @@ class CreateTaskActivity : AppCompatActivity() {
         private const val REQUEST_CODE_PICK_SOUND = 1
     }
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateTaskBinding.inflate(layoutInflater)
@@ -139,7 +137,6 @@ class CreateTaskActivity : AppCompatActivity() {
         datePickerDialog.show()
     }
 
-
     private fun formatDate(day: Int, month: Int, year: Int): String {
         val calendar = Calendar.getInstance().apply {
             set(Calendar.DAY_OF_MONTH, day)
@@ -218,6 +215,10 @@ class CreateTaskActivity : AppCompatActivity() {
         val date = binding.tvDate.text.toString().trim()
         val time = binding.tvTime.text.toString().trim()
 
+        // Retrieve alarmSoundUri from SharedPreferences
+        val sharedPreferences = getSharedPreferences("TaskPreferences", Context.MODE_PRIVATE)
+        val alarmSoundUri = sharedPreferences.getString("alarmSoundUri", null)
+
         // Check if the date or time fields are red
         val isDateRed = binding.tvDate.currentTextColor == ContextCompat.getColor(this, R.color.red)
         val isTimeRed = binding.tvTime.currentTextColor == ContextCompat.getColor(this, R.color.red)
@@ -241,8 +242,9 @@ class CreateTaskActivity : AppCompatActivity() {
                 description = description,
                 date = date,
                 time = time, // Ensure the time includes the AM/PM suffix
-                priority = priority
-            ) ?: Task(title = title, description = description, date = date, time = time, priority = priority)
+                priority = priority,
+                alarmSoundUri = alarmSoundUri // Ensure the alarmSoundUri is preserved or updated
+            ) ?: Task(title = title, description = description, date = date, time = time, priority = priority, alarmSoundUri = alarmSoundUri)
 
             // Check if sbAlarm is on before setting the alarm
             if (binding.sbAlarm.isChecked) {
@@ -302,18 +304,15 @@ class CreateTaskActivity : AppCompatActivity() {
         if (requestCode == REQUEST_CODE_PICK_SOUND && resultCode == RESULT_OK) {
             val uri: Uri? = data?.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
             if (uri != null) {
+                // Save URI to SharedPreferences
+                val sharedPreferences = getSharedPreferences("TaskPreferences", Context.MODE_PRIVATE)
+                sharedPreferences.edit().putString("alarmSoundUri", uri.toString()).apply()
+
+                // Update task with new URI
                 task = task?.copy(alarmSoundUri = uri.toString())
             }
         }
     }
-
-
-    private fun saveSoundUriToDatabase(uriString: String) {
-        val task = task ?: return // Ensure task is not null
-        val updatedTask = task.copy(alarmSoundUri = uriString)
-        taskViewModel.update(updatedTask) // Update the task in the database
-    }
-
 
 
     @Deprecated("This method has been deprecated in favor of using the\n      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.\n      The OnBackPressedDispatcher controls how back button events are dispatched\n      to one or more {@link OnBackPressedCallback} objects.")

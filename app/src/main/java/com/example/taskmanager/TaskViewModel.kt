@@ -10,13 +10,13 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: TaskRepository
     val allTasks: LiveData<List<Task>>
-    val incompleteTasks: LiveData<List<Task>> // Add this line
+    val incompleteTasks: LiveData<List<Task>>
 
     init {
         val tasksDao = TaskDatabase.getDatabase(application).taskDao()
         repository = TaskRepository(tasksDao)
         allTasks = repository.allTasks
-        incompleteTasks = repository.getIncompleteTasks() // Add this line
+        incompleteTasks = repository.getIncompleteTasks()
     }
 
     fun insert(task: Task) = viewModelScope.launch {

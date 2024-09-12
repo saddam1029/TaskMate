@@ -1,3 +1,4 @@
+
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.TaskMate" parent="Theme.Material3.DayNight.NoActionBar">
@@ -32,5 +33,11 @@
         <item name="android:textColorPrimary">@color/app_color</item> <!--days of the month-->
         <item name="android:textColorSecondary">@color/app_color</item>    <!--days of the week-->
     </style>
+
+    <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/custom_dialog_background</item>
+        <item name="android:windowMinWidthMajor">50%</item>
+    </style>
+
 
 </resources>

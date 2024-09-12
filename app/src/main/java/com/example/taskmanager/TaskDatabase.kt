@@ -20,8 +20,11 @@ abstract class TaskDatabase : RoomDatabase() {
             override fun migrate(db: SupportSQLiteDatabase) {
                 // Add the "status" column to the "task_table"
                 db.execSQL("ALTER TABLE task_table ADD COLUMN status TEXT NOT NULL DEFAULT ''")
+                // Add the "alarmSoundUri" column to the "task_table"
+                db.execSQL("ALTER TABLE task_table ADD COLUMN alarmSoundUri TEXT")
             }
         }
+
 
         fun getDatabase(context: Context): TaskDatabase {
             return INSTANCE ?: synchronized(this) {

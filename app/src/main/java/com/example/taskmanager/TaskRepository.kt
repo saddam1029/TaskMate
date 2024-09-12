@@ -7,7 +7,6 @@ class TaskRepository(private val taskDao: TaskDao) {
 
     val allTasks: LiveData<List<Task>> = taskDao.getAllTasks()
 
-    // Use the correct method to get incomplete tasks
     fun getIncompleteTasks(): LiveData<List<Task>> {
         return taskDao.getIncompleteTasks()
     }
@@ -28,5 +27,6 @@ class TaskRepository(private val taskDao: TaskDao) {
         return taskDao.getTaskById(taskId)
     }
 }
+
 
 

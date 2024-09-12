@@ -1,5 +1,6 @@
 package com.example.taskmanager
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -22,7 +23,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var taskViewModel: TaskViewModel
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,6 +107,7 @@ class MainActivity : AppCompatActivity() {
         const val CHANNEL_ID = "task_notification_channel"
     }
 
+    @SuppressLint("ObsoleteSdkInt")
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "Task Notification"
@@ -121,6 +122,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("InflateParams")
     private fun showCustomMenu(anchor: View) {
         val inflater = LayoutInflater.from(this)
         val customMenuView = inflater.inflate(R.layout.custom_menu, null)
@@ -141,8 +143,7 @@ class MainActivity : AppCompatActivity() {
             popupWindow.dismiss()
         }
 
-        customMenuView.findViewById<TextView>(R.id.tvFollow).setOnClickListener {
-            // Handle Follow Us click
+        customMenuView.findViewById<TextView>(R.id.tvChangeTheme).setOnClickListener {
             popupWindow.dismiss()
             // Add your action here
         }
@@ -161,6 +162,7 @@ class MainActivity : AppCompatActivity() {
 
         popupWindow.showAsDropDown(anchor, 0, 0)
     }
+
 
     @Deprecated("This method has been deprecated in favor of using the\n      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.\n      The OnBackPressedDispatcher controls how back button events are dispatched\n      to one or more {@link OnBackPressedCallback} objects.")
     override fun onBackPressed() {
@@ -192,7 +194,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun moveToTaskComplete() {
-        val intent = Intent(this, CreateTaskActivity::class.java)
+        val intent = Intent(this, TaskComplete::class.java)
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
